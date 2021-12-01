@@ -1,4 +1,4 @@
 # advent of code 2021
-advent of code solutions (javascript)
+advent of code 2021 solutions
 
-* see https://adventofcode.com/2021
+* see blog: https://nathanesau.github.io/advent_of_code_2021/

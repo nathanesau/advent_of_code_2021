@@ -7,7 +7,7 @@ tags: js
 Authors: Nathan Esau
 ---
 
-Link: https://adventofcode.com/2021/day/1
+See problem [here](https://adventofcode.com/2021/day/1).
 
 For part1, we need to determine the number of entries larger than the previous entry.
 
