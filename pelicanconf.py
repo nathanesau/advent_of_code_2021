@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = 'Nelson Chen'
-SITENAME = 'Pelican Action Demo'
-SITEURL = ''
+AUTHOR = 'Nathan Esau'
+SITENAME = 'Advent of Code 2021 Blog'
+SITEURL = '/advent_of_code_2021'
 
 PATH = 'content'
 
