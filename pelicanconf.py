@@ -20,16 +20,16 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
+LINKS = (('Website', 'https://nathanesau.github.io'),
+         ('Github', 'https://github.com/nathanesau'),
          ('Repository', 'https://github.com/nathanesau/advent_of_code_2021'),)
-
-# Social widget
-SOCIAL = (('Linkedin', 'https://linkedin.com/in/nathanesau'),
-          ('Website', 'https://nathanesau.github.io'),)
 
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+THEME = 'themes/Flex'
+STATIC_PATHS = ['img', 'static']
+FAVICON = 'img/favicon.ico'
+CUSTOM_CSS = 'static/custom.css'
