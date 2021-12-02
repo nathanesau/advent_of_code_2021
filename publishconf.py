@@ -22,4 +22,4 @@ DELETE_OUTPUT_DIRECTORY = True
 # Following items are often useful when publishing
 
 DISQUS_SITENAME = "nathanesau-github-io"
-GOOGLE_ANALYTICS = "G-69CG2TKJ4T"
+GOOGLE_ANALYTICS = "UA-214131892-1"
