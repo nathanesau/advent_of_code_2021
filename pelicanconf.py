@@ -27,7 +27,7 @@ LINKS = (('Website', 'https://nathanesau.github.io'),
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = False
 
 THEME = 'themes/Flex'
 STATIC_PATHS = ['img', 'static']
