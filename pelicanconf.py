@@ -35,3 +35,4 @@ FAVICON = 'img/favicon.ico'
 CUSTOM_CSS = 'static/custom.css'
 
 DISQUS_SITENAME = 'nathanesau-github-io'
+GOOGLE_ANALYTICS = "UA-214131892-1"
