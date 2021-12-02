@@ -20,6 +20,5 @@ CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
-
-DISQUS_SITENAME = "nathanesau-github-io"
+DISQUS_SITENAME = 'nathanesau-github-io'
 GOOGLE_ANALYTICS = "UA-214131892-1"
