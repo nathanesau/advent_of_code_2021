@@ -28,5 +28,6 @@ with open("aoc2021_day1.txt") as f:
     data = f.read()
     arr = [int(line) for line in data.splitlines()]
 
+print("day1")
 part1(arr)
 part2(arr)

@@ -37,6 +37,7 @@ function part2(pi) {
     console.log(`part2: ${ans}`);
 }
 
+console.log("day1")
 var f = fs.readFileSync('aoc2021_day1.txt', 'utf8');
 var pi = f.toString();
 part1(pi);
