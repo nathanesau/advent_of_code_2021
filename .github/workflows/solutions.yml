@@ -27,8 +27,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run js solutions
-        run: cd solutions && node *.js
+        run: cd solutions && for i in *.js; do node ${i}; done
 
       # Runs a set of commands using the runners shell
       - name: Run python solutions
-        run: cd solutions && python *.py
+        run: cd solutions && for i in *.py; do python ${i}; done
