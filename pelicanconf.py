@@ -33,3 +33,5 @@ THEME = 'themes/Flex'
 STATIC_PATHS = ['img', 'static']
 FAVICON = 'img/favicon.ico'
 CUSTOM_CSS = 'static/custom.css'
+
+DISQUS_SITENAME = 'nathanesau-github-io'
