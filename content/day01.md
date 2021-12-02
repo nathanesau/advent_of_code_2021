@@ -1,5 +1,5 @@
 ---
-title: Day 1
+title: Day 01
 date: 2021-01-01
 modified: 2021-01-01
 category: aoc2021

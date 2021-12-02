@@ -32,10 +32,10 @@ def part2(arr):
     ans = x * y
     print("part2: ", ans)
 
-with open("aoc2021_day2.txt") as f:
+with open("aoc2021_day02.txt") as f:
     data = f.read()
     arr = [line for line in data.splitlines()]
 
-print("day2")
+print("day02")
 part1(arr)
 part2(arr)

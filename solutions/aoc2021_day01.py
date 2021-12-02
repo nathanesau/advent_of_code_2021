@@ -24,10 +24,10 @@ def part2(arr):
         a = e
     print("part2: ", ans)
 
-with open("aoc2021_day1.txt") as f:
+with open("aoc2021_day01.txt") as f:
     data = f.read()
     arr = [int(line) for line in data.splitlines()]
 
-print("day1")
+print("day01")
 part1(arr)
 part2(arr)

@@ -1,17 +1,5 @@
----
-title: Day 2
-date: 2021-01-02
-modified: 2021-01-02
-category: aoc2021
-tags: js
-Authors: Nathan Esau
----
+var fs = require('fs');
 
-See problem [here](https://adventofcode.com/2021/day/2).
-
-For part1, we need to keep track of horizontal position `x` and depth `y`.
-
-```js
 function part1(pi) {
     var arr = pi.split('\n').map(String);
     var x = 0;
@@ -20,18 +8,20 @@ function part1(pi) {
         var comp = command.split(" ");
         var direction = comp[0];
         var magnitude = parseInt(comp[1]);
-        if (direction === "forward") x += magnitude;
-        else if (direction === "down") y += magnitude;
-        else if (direction === "up") y -= magnitude;
+        if (direction === "forward") {
+            x += magnitude;
+        }
+        else if (direction === "down") {
+            y += magnitude;
+        }
+        else if (direction === "up") {
+            y -= magnitude;
+        }
     }
     var ans = x * y;
     console.log(`part1: ${ans}`);
 }
-```
 
-For part2, we need to keep track of horizontal position `x` and depth `y` and aim. Note that the up and down directions now change the aim not the depth.
-
-```js
 function part2(pi) {
     var arr = pi.split('\n').map(String);
     var x = 0;
@@ -55,6 +45,9 @@ function part2(pi) {
     var ans = x * y;
     console.log(`part2: ${ans}`);
 }
-```
 
-That's all for today. Nothing too tricky yet!
+console.log("day02");
+var f = fs.readFileSync('aoc2021_day02.txt', 'utf8');
+var pi = f.toString();
+part1(pi);
+part2(pi);
