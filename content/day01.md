@@ -1,7 +1,7 @@
 ---
 title: Day 01
-date: 2021-01-01
-modified: 2021-01-01
+date: 2021-12-01
+modified: 2021-12-01
 category: aoc2021
 tags: js
 Authors: Nathan Esau
