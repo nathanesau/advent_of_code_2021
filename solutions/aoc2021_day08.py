@@ -27,6 +27,7 @@ def find_numbers(numbers):
     return [zero, one, two, three, four, five, six, seven, eight, nine]
 
 def part2(arr):
+    # thanks reddit...
     total = 0
     for row in arr:
         a, b = row.split('|')
