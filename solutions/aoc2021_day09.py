@@ -54,6 +54,7 @@ def part2(arr):
 with open('aoc2021_day09.txt') as f:
     data = f.read()
 
+print("day09")
 arr = [[int(e) for e in line] for line in data.splitlines()]
 part1(arr)
 part2(arr)
