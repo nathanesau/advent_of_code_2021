@@ -1,5 +1,4 @@
-# globals
-nflashes = 0
+import sys
 
 def get_neighbors(grid, i, j):
     neighbors = []
@@ -8,53 +7,39 @@ def get_neighbors(grid, i, j):
             neighbors.append(n)
     return neighbors
 
-def flash_cell(grid, i, j):
-    global nflashes
-    if grid[i][j] <= 9:
-        return
-    nflashes += 1
+def flash_cell(grid, i, j, md):
+    if grid[i][j] <= 9: return
+    md["nflashes"] += 1
     for n in get_neighbors(grid, i, j): # adjust neighbors
         ni, nj = n
         if grid[ni][nj] <= 9 and grid[ni][nj] != 0:
             grid[ni][nj] += 1
             if grid[ni][nj] > 9:
-                flash_cell(grid, ni, nj)
+                flash_cell(grid, ni, nj, md)
     grid[i][j] = 0
 
-def display_grid(grid): # for debugging
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            print(grid[i][j], end="")
-        print()
-
-def adjust_grid(grid, nsteps):  # return num of steps performed
-    global nflashes
+def adjust_grid(grid, nsteps, md):
     for step in range(nsteps):
-        # increment
         grid = [[grid[i][j]+1 for j in range(len(grid[0]))] for i in range(len(grid))]
-        # flash
-        nflashes_before = nflashes
+        nflashes_before = md["nflashes"]
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                flash_cell(grid, i, j)
-        nflashes_after = nflashes
+                flash_cell(grid, i, j, md)
+        nflashes_after = md["nflashes"]
         if (nflashes_after - nflashes_before) == len(grid) * len(grid[0]):
-            return step
-    return nsteps
+            md["nsteps"] = step+1
+            return
+    md["nsteps"] = nsteps
 
 def part1(grid):
-    global nflashes
-    nflashes = 0
-    _ = adjust_grid(grid, nsteps=100)
-    #display_grid(grid)
-    print("part1 ", nflashes)
+    md = {"nflashes": 0}
+    adjust_grid(grid, nsteps=100, md=md)
+    print("part1 ", md["nflashes"])
 
 def part2(grid):
-    global nflashes
-    nflashes = 0
-    performed = adjust_grid(grid, nsteps=1000)
-    #display_grid(grid)
-    print("part2 ", performed+1)
+    md = {"nflashes": 0}
+    adjust_grid(grid, nsteps=sys.maxsize, md=md)
+    print("part2 ", md["nsteps"])
 
 with open("aoc2021_day11.txt") as f:
     data = f.read()
