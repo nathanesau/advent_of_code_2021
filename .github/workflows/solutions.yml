@@ -31,4 +31,4 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run python solutions
-        run: cd solutions && for i in *.py; do python ${i}; done
+        run: pip3 install ascii_parser==0.1.4 && cd solutions && for i in *.py; do python ${i}; done
