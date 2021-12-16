@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="/advent_of_code_2021/theme/pygments/github.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/font-awesome/css/solid.css">
+
+    <link href="/advent_of_code_2021/static/custom.css" rel="stylesheet">
+
+
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-214131892-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <meta name="author" content="Nathan Esau" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="Advent of Code 2021 Blog"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Advent of Code 2021 Blog"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/advent_of_code_2021"/>
+
+  <title>Advent of Code 2021 Blog &ndash; Tag js</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="/advent_of_code_2021">
+        <img src="/advent_of_code_2021/theme/img/profile.png" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="/advent_of_code_2021"></a>
+      </h1>
+
+
+
+      <nav>
+        <ul class="list">
+
+
+
+            <li>
+              <a target="_self" href="https://nathanesau.github.io" >Website</a>
+            </li>
+            <li>
+              <a target="_self" href="https://github.com/nathanesau" >Github</a>
+            </li>
+            <li>
+              <a target="_self" href="https://github.com/nathanesau/advent_of_code_2021" >Repository</a>
+            </li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+
+
+
+<article>
+  <header>
+    <h2><a href="/advent_of_code_2021/day-07.html#day-07">Day 07</a></h2>
+    <p>
+      Posted on Tue 07 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+          &#8226; Tagged with
+              <a href="/advent_of_code_2021/tag/js.html">js</a>,              <a href="/advent_of_code_2021/tag/python.html">python</a>
+    </p>
+  </header>
+  <div>
+      <p>See problem <a href="https://adventofcode.com/2021/day/7">here</a>.</p>
+<p>The basic idea is to calculate the total <code>cost</code> for some positions to position <code>m</code>.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">fuel_cost</span><span class="p">(</span><span class="nx">positions</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">c</span> <span class="k">of</span> <span class="nx">positions</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">method</span> <span class="o">===</span> <span class="s2">&quot;constant&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cost</span> <span class="o">+=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">m</span> <span class="o">-</span> <span class="nx">c</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span> <span class="c1">// &quot;step&quot;</span>
+            <span class="nx">cost</span> <span class="o">+=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">m</span> <span class="o">-</span> <span class="nx">c</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">m</span> <span class="o">-</span> <span class="nx">c …</span></pre></div>
+        <br>
+        <a class="btn"
+           href="/advent_of_code_2021/day-07.html#day-07">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="/advent_of_code_2021/day-06.html#day-06">Day 06</a></h2>
+    <p>
+      Posted on Mon 06 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+          &#8226; Tagged with
+              <a href="/advent_of_code_2021/tag/js.html">js</a>,              <a href="/advent_of_code_2021/tag/python.html">python</a>
+    </p>
+  </header>
+  <div>
+      <p>See problem <a href="https://adventofcode.com/2021/day/6">here</a>.</p>
+<p>My initial approach was to track all of the fish. We decrease number of days for each fish by 1 until it reaches 0. Then we reset it to 6 for existing fish and add a new fish with value 8. This works fine but it is …</p>
+        <br>
+        <a class="btn"
+           href="/advent_of_code_2021/day-06.html#day-06">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="/advent_of_code_2021/day-05.html#day-05">Day 05</a></h2>
+    <p>
+      Posted on Sun 05 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+          &#8226; Tagged with
+              <a href="/advent_of_code_2021/tag/js.html">js</a>
+    </p>
+  </header>
+  <div>
+      <p>See problem <a href="https://adventofcode.com/2021/day/5">here</a>.</p>
+<p>First let's consider how to parse the input:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parse_input</span><span class="p">(</span><span class="nx">pi</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">pi</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nb">String</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">segments</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">line</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">ab</span> <span class="o">=</span> <span class="nx">line</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">ab</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">ab</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+        <span class="nx">segments</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+            <span class="s2">&quot;x1&quot;</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;y1&quot;</span><span class="o">:</span> <span class="nb">parseInt …</span></pre></div>
+        <br>
+        <a class="btn"
+           href="/advent_of_code_2021/day-05.html#day-05">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="/advent_of_code_2021/day-04.html#day-04">Day 04</a></h2>
+    <p>
+      Posted on Sat 04 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+          &#8226; Tagged with
+              <a href="/advent_of_code_2021/tag/js.html">js</a>
+    </p>
+  </header>
+  <div>
+      <p>See problem <a href="https://adventofcode.com/2021/day/4">here</a>.</p>
+<p>For part1, we need to do the following:</p>
+<ul>
+<li>define a function which can parse the order and boards from the puzzle input, i.e. <code>parse_input</code></li>
+<li>define a function which marks squares equal to <code>e</code> in bingo board as <code>null</code>, i.e. <code>mark_board</code></li>
+<li>define a function which can …</li></ul>
+        <br>
+        <a class="btn"
+           href="/advent_of_code_2021/day-04.html#day-04">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="/advent_of_code_2021/day-03.html#day-03">Day 03</a></h2>
+    <p>
+      Posted on Fri 03 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+          &#8226; Tagged with
+              <a href="/advent_of_code_2021/tag/js.html">js</a>
+    </p>
+  </header>
+  <div>
+      <p>See problem <a href="https://adventofcode.com/2021/day/3">here</a>.</p>
+<p>For part1, we need to loop through the lines column by column and count the frequency of each digit in the column. If zero is more common, our first string <code>s1</code> appends a zero. Otherwise, our first string <code>s1</code> appends a one. Our second string is the …</p>
+        <br>
+        <a class="btn"
+           href="/advent_of_code_2021/day-03.html#day-03">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="/advent_of_code_2021/day-02.html#day-02">Day 02</a></h2>
+    <p>
+      Posted on Thu 02 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+          &#8226; Tagged with
+              <a href="/advent_of_code_2021/tag/js.html">js</a>
+    </p>
+  </header>
+  <div>
+      <p>See problem <a href="https://adventofcode.com/2021/day/2">here</a>.</p>
+<p>For part1, we need to keep track of horizontal position <code>x</code> and depth <code>y</code>.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">part1</span><span class="p">(</span><span class="nx">pi</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">pi</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nb">String</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">command</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">comp</span> <span class="o">=</span> <span class="nx">command</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">direction</span> <span class="o">=</span> <span class="nx">comp</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">magnitude</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">comp …</span></pre></div>
+        <br>
+        <a class="btn"
+           href="/advent_of_code_2021/day-02.html#day-02">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="/advent_of_code_2021/day-01.html#day-01">Day 01</a></h2>
+    <p>
+      Posted on Wed 01 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+          &#8226; Tagged with
+              <a href="/advent_of_code_2021/tag/js.html">js</a>
+    </p>
+  </header>
+  <div>
+      <p>See problem <a href="https://adventofcode.com/2021/day/1">here</a>.</p>
+<p>For part1, we need to determine the number of entries larger than the previous entry.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">part1</span><span class="p">(</span><span class="nx">pi</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">pi</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nb">Number</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">pe</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">pe</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span> <span class="o">&gt;</span> <span class="nx">pe</span><span class="p">)</span> <span class="nx">ans</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">pe</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log …</span></pre></div>
+        <br>
+        <a class="btn"
+           href="/advent_of_code_2021/day-01.html#day-01">
+          Continue reading
+        </a>
+  </div>
+</article>
+
+
+
+
+    <footer>
+<p>&copy;  </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Advent of Code 2021 Blog ",
+  "url" : "/advent_of_code_2021",
+  "image": "",
+  "description": ""
+}
+</script>
+
+
+</body>
+</html>

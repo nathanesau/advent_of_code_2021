@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="/advent_of_code_2021/theme/pygments/github.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="/advent_of_code_2021/theme/font-awesome/css/solid.css">
+
+    <link href="/advent_of_code_2021/static/custom.css" rel="stylesheet">
+
+
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-214131892-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+<meta name="author" content="Nathan Esau" />
+<meta name="description" content="See problem here. For part1, we need to do the following: define a function which can parse the order and boards from the puzzle input, i.e. parse_input define a function which marks squares equal to e in bingo board as null, i.e. mark_board define a function which can …" />
+<meta name="keywords" content="js">
+
+
+<meta property="og:site_name" content="Advent of Code 2021 Blog"/>
+<meta property="og:title" content="Day 04"/>
+<meta property="og:description" content="See problem here. For part1, we need to do the following: define a function which can parse the order and boards from the puzzle input, i.e. parse_input define a function which marks squares equal to e in bingo board as null, i.e. mark_board define a function which can …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/advent_of_code_2021/day-04.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-12-04 00:00:00-05:00"/>
+<meta property="article:modified_time" content="2021-12-04 00:00:00-05:00"/>
+<meta property="article:author" content="/advent_of_code_2021/author/nathan-esau.html">
+<meta property="article:section" content="aoc2021"/>
+<meta property="article:tag" content="js"/>
+<meta property="og:image" content="">
+
+  <title>Advent of Code 2021 Blog &ndash; Day 04</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="/advent_of_code_2021">
+        <img src="/advent_of_code_2021/theme/img/profile.png" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="/advent_of_code_2021"></a>
+      </h1>
+
+
+
+      <nav>
+        <ul class="list">
+
+
+
+            <li>
+              <a target="_self" href="https://nathanesau.github.io" >Website</a>
+            </li>
+            <li>
+              <a target="_self" href="https://github.com/nathanesau" >Github</a>
+            </li>
+            <li>
+              <a target="_self" href="https://github.com/nathanesau/advent_of_code_2021" >Repository</a>
+            </li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="day-04">Day 04</h1>
+    <p>
+      Posted on Sat 04 December 2021 in <a href="/advent_of_code_2021/category/aoc2021.html">aoc2021</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>See problem <a href="https://adventofcode.com/2021/day/4">here</a>.</p>
+<p>For part1, we need to do the following:</p>
+<ul>
+<li>define a function which can parse the order and boards from the puzzle input, i.e. <code>parse_input</code></li>
+<li>define a function which marks squares equal to <code>e</code> in bingo board as <code>null</code>, i.e. <code>mark_board</code></li>
+<li>define a function which can check if a bingo board is solved, i.e. it has a column or row with all <code>null</code> entries i.e. <code>is_solved</code></li>
+<li>define a function which can calculate the score for a board which is the sum of non <code>null</code> entries, i.e. <code>calculate_score</code></li>
+<li>define a function which calculates the <code>score</code> for the <code>n</code>th winning board, i.e. <code>score</code></li>
+</ul>
+<p>here are these functions</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parse_input</span><span class="p">(</span><span class="nx">pi</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">pi</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nb">String</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">order</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nb">Number</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">boards</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">var</span> <span class="nx">board</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">line</span> <span class="k">of</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">boards</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">board</span><span class="p">);</span>
+            <span class="nx">board</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">line</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}).</span><span class="nx">map</span><span class="p">(</span><span class="nb">Number</span><span class="p">);</span>
+        <span class="nx">board</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">row</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">boards</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">board</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">order</span><span class="o">:</span> <span class="nx">order</span><span class="p">,</span> <span class="nx">boards</span><span class="o">:</span> <span class="nx">boards</span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">mark_board</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">===</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">is_solved</span><span class="p">(</span><span class="nx">board</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">rc</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">rc</span> <span class="o">===</span> <span class="nx">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">cc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">cc</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">cc</span> <span class="o">===</span> <span class="nx">board</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">calculate_score</span><span class="p">(</span><span class="nx">board</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">s</span> <span class="o">+=</span> <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">score</span><span class="p">(</span><span class="nx">order</span><span class="p">,</span> <span class="nx">boards</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">winners</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">order</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">board</span> <span class="k">of</span> <span class="nx">boards</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">index</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">winners</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span> <span class="k">continue</span><span class="p">;</span>
+            <span class="nx">mark_board</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">is_solved</span><span class="p">(</span><span class="nx">board</span><span class="p">))</span> <span class="nx">winners</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">winners</span><span class="p">.</span><span class="nx">size</span> <span class="o">===</span> <span class="nx">n</span><span class="p">)</span> <span class="k">return</span> <span class="nx">calculate_score</span><span class="p">(</span><span class="nx">board</span><span class="p">)</span> <span class="o">*</span> <span class="nx">e</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>then we just want the score for the first winning board.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">part1</span><span class="p">(</span><span class="nx">pi</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">parse_input</span><span class="p">(</span><span class="nx">pi</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">ans</span> <span class="o">=</span> <span class="nx">score</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">],</span> <span class="nx">data</span><span class="p">[</span><span class="s2">&quot;boards&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`part1: </span><span class="si">${</span><span class="nx">ans</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>and for part2 we want the score for the second winning board.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">part2</span><span class="p">(</span><span class="nx">pi</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">parse_input</span><span class="p">(</span><span class="nx">pi</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">ans</span> <span class="o">=</span> <span class="nx">score</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">],</span> <span class="nx">data</span><span class="p">[</span><span class="s2">&quot;boards&quot;</span><span class="p">],</span> <span class="nx">data</span><span class="p">[</span><span class="s2">&quot;boards&quot;</span><span class="p">].</span><span class="nx">length</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`part2: </span><span class="si">${</span><span class="nx">ans</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Cracked the top 500 this time. Progress is being made!</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="/advent_of_code_2021/tag/js.html">js</a>
+    </p>
+  </div>
+
+
+
+
+
+<!-- Disqus -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'nathanesau-github-io';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+    Please enable JavaScript to view comments.
+</noscript>
+<!-- End Disqus -->
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Advent of Code 2021 Blog ",
+  "url" : "/advent_of_code_2021",
+  "image": "",
+  "description": ""
+}
+</script>
+
+
+</body>
+</html>
